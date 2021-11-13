@@ -1,6 +1,7 @@
 import {createBrowserHistory} from 'history';
 const apiBaseUrl = 'http://localhost:5000/api';
 
+// class to hold functions to operate on API
 export default class Data {
     api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
         const url = apiBaseUrl + path;

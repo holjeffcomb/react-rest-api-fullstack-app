@@ -6,6 +6,7 @@ import {
   Switch
 } from 'react-router-dom';
 
+// import components
 import CourseDetail from './components/CourseDetail';
 import Courses from './components/Courses';
 import CreateCourse from './components/CreateCourse.js';
@@ -15,11 +16,16 @@ import UserSignIn from './components/UserSignIn';
 import UserSignOut from './components/UserSignOut';
 import UserSignUp from './components/UserSignUp';
 import UnhandledError from './components/UnhandledError';
+import Forbidden from './components/Forbidden';
+import NotFound from './components/NotFound';
 
+// import context
 import withContext from './Context';
 
+// import private route
 import PrivateRoute from './PrivateRoute';
 
+// wrap components in context
 const HeaderWithContext = withContext(Header);
 const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
@@ -43,7 +49,8 @@ const App = () => (
           <Route path="/signup" component={UserSignUpWithContext} />
           <Route path="/signout" component={UserSignOutWithContext} />
           <Route path="/error" component={UnhandledError} />
-          
+          <Route path="/notfound" component={NotFound} />
+          <Route path="/forbidden" component={Forbidden} />
         </Switch>
       </main>
     </div>

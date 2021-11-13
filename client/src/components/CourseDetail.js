@@ -13,32 +13,40 @@ export default class CourseDetail extends Component {
 		};
     }
 
+    // check existence of course upon mounting
     componentDidMount() {
-        const { context } = this.props;
         const id = this.props.match.params.id;
+		this.setState({ loading: true });
+		fetch(`http://localhost:5000/api/courses/${this.state.id}`)
+		  .then(response => {
+            if (response.status === 404) {
+                this.props.history.push('/notfound');
+            } else if (response.status === 500 ) {
+                this.props.history.push('/error');
+            } else {
+                return response.json()
+            }
+          })
+		  .then(data => this.setState( {
+			course: data.course,
+            courseOwner: data.course.Owner,
+			loading: false,
+            id: id
+		  }))
+		  .catch((err) => {
+            console.log('Error fetching and parsing data', err);
+            this.props.history.push('/notfound');
+      });
+	  }
 
-        this.setState({ loading: true });
-        context.data.getCourse(id)
-            .then((response) => {
-                console.log(response);
-                this.setState(() => {
-                    return {
-                        course: response.course,
-                        courseOwner: response.course.Owner,
-                        id: id,
-                        loading: false
-                    }
-                })
-            });
-        
-    }
-
+    // inactive function to parse list of materials
     parseMaterials = (materials) => {
         return materials.replaceAll('*','').split('\n').map(function(material){
             return <li>{material}</li>
         });
     }
 
+    // delete course
     deleteCourseHandler = () => {
         const { context } = this.props;
         context.data.deleteCourse(this.props.match.params.id);
@@ -57,7 +65,7 @@ export default class CourseDetail extends Component {
                     <div className="actions--bar">
                         <div className="wrap">
                             {/* Only shows update course and delete course buttons if user is authenticated && matches course owner. */}
-                            {(authenticatedUser && authenticatedUser.userId === courseOwner.id) ? 
+                            {(authenticatedUser && authenticatedUser.id === courseOwner.id) ? 
                                 (
                                     <React.Fragment>
                                         <Link className="button" to={`/courses/${this.state.id}/update`}>Update Course</Link>

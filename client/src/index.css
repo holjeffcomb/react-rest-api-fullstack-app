@@ -29,8 +29,8 @@ a {
   padding: 0 1rem;
 }
 header {
-  background: #57496e;
-  color: #fff;
+  background: #3a6392;
+  color: rgb(178, 225, 247);
   padding: 1rem 0;
   margin-bottom: 2rem;
 }
@@ -41,13 +41,14 @@ header {
 }
 .header--logo a {
   font-size: 1.25rem;
-  color: #fff;
+  color: rgb(205, 249, 255);
 }
 header li {
   font-size: .8rem;
 }
 header nav a {
-  color: #dbd;
+  color: rgb(133, 180, 207);
+  font-weight: bold;
 }
 header nav a:hover {
   color: #fff;
@@ -62,7 +63,7 @@ header nav a:hover {
   margin-left: .5rem;
 }
 .course--module {
-  background: #7c689b;
+  background: #68919b;
   border-radius: .5rem;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -80,7 +81,7 @@ header nav a:hover {
   font-size: 1.25rem;
 }
 .course--add--module {
-  background: #ddd9e4;
+  background: #aecae4;
   color: #57496e;
   font-weight: 300;
   font-size: 1.25rem;
@@ -89,7 +90,7 @@ header nav a:hover {
   width: 20px;
   height: auto;
   margin-right: 5px;
-  fill: #57496e;
+  fill: #49656e;
 }
 .course--detail--title {
   padding-bottom: .25rem;
@@ -167,7 +168,7 @@ textarea {
   min-height: 300px;
 }
 .button {
-  background: #7c689b;
+  background: #689b9b;
   color: #fff;
   font-size: 1rem;
   padding: .75rem 1.5rem;
@@ -188,13 +189,13 @@ textarea {
   cursor: pointer;
 }
 .button-secondary {
-  color: #7c689b;
+  color: #688b9b;
   background: none;
   box-shadow: 0 0 0 2px #7c689b inset;
   transition: box-shadow 0.2s, color 0.2s;
 }
 .button-secondary:hover {
-  color: #63537d;
+  color: #536a7d;
   box-shadow: 0 0 0 2px #63537d inset;
   cursor: pointer;
 }

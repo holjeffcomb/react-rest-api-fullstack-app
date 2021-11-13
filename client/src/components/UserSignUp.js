@@ -20,7 +20,7 @@ export default class UserSignUp extends Component {
         } = this.state;
 
         return(
-            <div class="form--centered">
+            <div className="form--centered">
                 <h2>Sign Up</h2>
                 
                 <Form 
@@ -112,7 +112,7 @@ export default class UserSignUp extends Component {
             })
             .catch( err => {
                 console.log(err);
-                // this.props.history.push('/error');
+                this.props.history.push('/error');
             })
     }
 

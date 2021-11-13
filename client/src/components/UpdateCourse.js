@@ -2,13 +2,44 @@ import React, { Component } from 'react';
 import CourseForm from './CourseForm';
 
 export default class UpdateCourse extends Component {
-    state = {
-        title: '',
-        description: '',
-        estimatedTime: '',
-        materialsNeeded: '',
-        errors: []
+    constructor(props) {
+		super(props);
+		this.state = {
+            courseTitle: '',
+            courseDescription: '',
+            estimatedTime: '',
+            materialsNeeded: '',
+            userId: '',
+            errors: [],
+		    loading: false,
+		};
     }
+
+    componentDidMount() {
+        const { context } = this.props;
+        const user = context.authenticatedUser;
+
+        this.setState({ loading: true });
+        fetch(`http://localhost:5000/api/courses/${this.props.match.params.id}`)
+            .then(response => response.json())
+            .then(data => {
+                this.setState( {
+                    courseTitle: data.course.title,
+                    courseDescription: data.course.description,
+                    estimatedTime: data.course.estimatedTime,
+                    materialsNeeded: data.course.materialsNeeded,
+                    userId: data.course.Owner.id,
+                    loading: false
+                });
+                if (user.id !== this.state.userId) {
+                    this.props.history.replace('/forbidden'); //replace used so user can't navigate back to same forbidden page. 
+                }
+            })
+            .catch((err) => {
+                console.log('Error fetching and parsing data', err);
+                this.props.history.push('/notfound');
+            });
+    }   
     
     render() {
         const {
@@ -30,7 +61,7 @@ export default class UpdateCourse extends Component {
                     elements={() => (
                         <React.Fragment>
                             <div>
-                                <label for="title">Course Title</label>
+                                <label htmlFor="title">Course Title</label>
                                 <input 
                                     id="title"
                                     name="title"
@@ -38,7 +69,7 @@ export default class UpdateCourse extends Component {
                                     value={title}
                                     onChange={this.change}
                                 />
-                                <label for="description">Course Description</label>
+                                <label htmlFor="description">Course Description</label>
                                 <textarea 
                                     id="description"
                                     name="description"
@@ -48,7 +79,7 @@ export default class UpdateCourse extends Component {
                                 />
                             </div>
                             <div>
-                                <label for="estimatedTime">Estimated Time</label>
+                                <label htmlFor="estimatedTime">Estimated Time</label>
                                 <input
                                     id="estimatedTime"
                                     name="estimatedTime"
@@ -56,7 +87,7 @@ export default class UpdateCourse extends Component {
                                     value={estimatedTime}
                                     onChange={this.change}
                                 />
-                                <label for="materialsNeeded">Materials Needed</label>
+                                <label htmlFor="materialsNeeded">Materials Needed</label>
                                 <textarea
                                     id="materialsNeeded"
                                     name="materialsNeeded"

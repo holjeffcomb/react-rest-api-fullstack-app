@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (props) => {
+const CourseForm = (props) => {
   const {
     cancel,
     errors,
@@ -53,3 +53,5 @@ function ErrorsDisplay({ errors }) {
 
   return errorsDisplay;
 }
+
+export default CourseForm;

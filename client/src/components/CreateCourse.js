@@ -30,7 +30,7 @@ export default class CreateCourse extends Component {
                     elements={() => (
                         <React.Fragment>
                             <div>
-                                <label for="title">Course Title</label>
+                                <label htmlFor="title">Course Title</label>
                                 <input 
                                     id="title"
                                     name="title"
@@ -38,7 +38,7 @@ export default class CreateCourse extends Component {
                                     value={title}
                                     onChange={this.change}
                                 />
-                                <label for="description">Course Description</label>
+                                <label htmlFor="description">Course Description</label>
                                 <textarea 
                                     id="description"
                                     name="description"
@@ -48,7 +48,7 @@ export default class CreateCourse extends Component {
                                 />
                             </div>
                             <div>
-                                <label for="estimatedTime">Estimated Time</label>
+                                <label htmlFor="estimatedTime">Estimated Time</label>
                                 <input
                                     id="estimatedTime"
                                     name="estimatedTime"
@@ -56,7 +56,7 @@ export default class CreateCourse extends Component {
                                     value={estimatedTime}
                                     onChange={this.change}
                                 />
-                                <label for="materialsNeeded">Materials Needed</label>
+                                <label htmlFor="materialsNeeded">Materials Needed</label>
                                 <textarea
                                     id="materialsNeeded"
                                     name="materialsNeeded"
@@ -99,7 +99,7 @@ export default class CreateCourse extends Component {
             description,
             estimatedTime,
             materialsNeeded,
-            userId: user.userId
+            userId: user.id
         }
 
         context.data.createCourse(course, user.emailAddress, user.password)

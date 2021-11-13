@@ -10,6 +10,7 @@ router.get('/users', authenticateUser, (req, res) => {
     // route that will return all properties and values for the currently authenticated User along with a 200 HTTP status code.
     const user = req.currentUser;
     res.status(200).json({
+        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         emailAddress: user.emailAddress,
