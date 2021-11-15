@@ -10,11 +10,17 @@ export default class Courses extends Component {
 
         context.data.getCourses()
             .then((response) => {
-                this.setState(() => {
-                    return {
-                        courses: response.courses
-                    }
-                })
+                if (response.status === 500) {
+                    this.props.history.push('/error');
+                } else if (response.status === 404) {
+                    this.props.history.push('/notfound');
+                } else {
+                    this.setState(() => {
+                        return {
+                            courses: response.courses
+                        }
+                    });
+                }
             });
     };
     
