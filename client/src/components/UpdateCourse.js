@@ -5,11 +5,12 @@ export default class UpdateCourse extends Component {
     constructor(props) {
 		super(props);
 		this.state = {
-            courseTitle: '',
-            courseDescription: '',
+            title: '',
+            description: '',
             estimatedTime: '',
             materialsNeeded: '',
             userId: '',
+            id: this.props.match.params.id,
             errors: [],
 		    loading: false,
 		};
@@ -24,8 +25,8 @@ export default class UpdateCourse extends Component {
             .then(response => response.json())
             .then(data => {
                 this.setState( {
-                    courseTitle: data.course.title,
-                    courseDescription: data.course.description,
+                    title: data.course.title,
+                    description: data.course.description,
                     estimatedTime: data.course.estimatedTime,
                     materialsNeeded: data.course.materialsNeeded,
                     userId: data.course.Owner.id,
@@ -57,7 +58,7 @@ export default class UpdateCourse extends Component {
                     cancel={this.cancel}
                     errors={errors}
                     submit={this.submit}
-                    submitButtonText="Create Course"
+                    submitButtonText="Update Course"
                     elements={() => (
                         <React.Fragment>
                             <div>
@@ -68,6 +69,7 @@ export default class UpdateCourse extends Component {
                                     type="text"
                                     value={title}
                                     onChange={this.change}
+                                    placeholder={title}
                                 />
                                 <label htmlFor="description">Course Description</label>
                                 <textarea 
@@ -76,6 +78,7 @@ export default class UpdateCourse extends Component {
                                     type="textarea"
                                     value={description}
                                     onChange={this.change}
+                                    placeholder={description}
                                 />
                             </div>
                             <div>
@@ -86,6 +89,7 @@ export default class UpdateCourse extends Component {
                                     type="text"
                                     value={estimatedTime}
                                     onChange={this.change}
+                                    placeholder={estimatedTime}
                                 />
                                 <label htmlFor="materialsNeeded">Materials Needed</label>
                                 <textarea
@@ -94,6 +98,7 @@ export default class UpdateCourse extends Component {
                                     type="textarea"
                                     value={materialsNeeded}
                                     onChange={this.change}
+                                    placehodler={materialsNeeded}
                                 />
                             </div>
                         </React.Fragment>
@@ -116,6 +121,8 @@ export default class UpdateCourse extends Component {
 
     submit = () => {
         const { context } = this.props;
+        const authenticatedUser = context.authenticatedUser;
+        const id = this.props.match.params.id;
 
         const {
             title,
@@ -131,12 +138,13 @@ export default class UpdateCourse extends Component {
             materialsNeeded
         }
 
-        context.data.updateCourse(course)
+        context.data.updateCourse(course, id, authenticatedUser.emailAddress, authenticatedUser.password)
             .then( errors => {
                 if (errors.length) {
                     this.setState({ errors });
                 } else {
                     // create course
+                    this.props.history.push(`/courses/${id}`);
                 }
             })
             .catch( err => {

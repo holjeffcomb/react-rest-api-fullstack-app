@@ -47,9 +47,11 @@ export default class CourseDetail extends Component {
     }
 
     // delete course
-    deleteCourseHandler = () => {
+    deleteCourseHandler = async () => {
         const { context } = this.props;
-        context.data.deleteCourse(this.props.match.params.id);
+        const authenticatedUser = context.authenticatedUser;
+        await context.data.deleteCourse(this.props.match.params.id, authenticatedUser.emailAddress, authenticatedUser.password);
+        this.props.history.push('/');
     }
     
     render() {

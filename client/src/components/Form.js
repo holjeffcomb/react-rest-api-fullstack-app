@@ -6,7 +6,7 @@ const Form = (props) => {
     errors,
     submit,
     submitButtonText,
-    elements,
+    elements
   } = props;
 
   function handleSubmit(event) {
