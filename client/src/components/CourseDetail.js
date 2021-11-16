@@ -23,6 +23,7 @@ export default class CourseDetail extends Component {
                 this.props.history.push('/notfound');
             } else if (response.status === 500 ) {
                 this.props.history.push('/error');
+                throw new Error();
             } else {
                 return response.json()
             }
@@ -38,9 +39,13 @@ export default class CourseDetail extends Component {
                     }
                 )
             } catch (err) {
-                this.props.history.push('/error');
+                this.props.history.push('/notfound');
             }
-          });
+          })
+          .catch(err => {
+              return false
+          })
+          
 	  }
 
     // inactive function to parse list of materials
