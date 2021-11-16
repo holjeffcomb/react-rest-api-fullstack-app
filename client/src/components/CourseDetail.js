@@ -27,16 +27,20 @@ export default class CourseDetail extends Component {
                 return response.json()
             }
           })
-		  .then(data => this.setState( {
-			course: data.course,
-            courseOwner: data.course.Owner,
-			loading: false,
-            id: id
-		  }))
-		  .catch((err) => {
-            console.log('Error fetching and parsing data', err);
-            this.props.history.push('/notfound');
-      });
+		  .then(data => {
+            try {
+                this.setState( 
+                    {
+                        course: data.course,
+                        courseOwner: data.course.Owner,
+                        loading: false,
+                        id: id
+                    }
+                )
+            } catch (err) {
+                this.props.history.push('/error');
+            }
+          });
 	  }
 
     // inactive function to parse list of materials
